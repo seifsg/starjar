@@ -41,7 +41,8 @@
   <div class="sheet wide">
     <header class="bar">
       <h2 id="panel-title"><span aria-hidden="true">⚙️</span> {t('grownUps')}</h2>
-      <button class="btn round" aria-label={t('close')} onclick={onclose}>✕</button>
+      <!-- svelte-ignore a11y_autofocus: dialogs should focus a control, else Chrome focuses the scrolling sheet -->
+      <button class="btn round" aria-label={t('close')} onclick={onclose} autofocus>✕</button>
     </header>
 
     {#if open && kid}
