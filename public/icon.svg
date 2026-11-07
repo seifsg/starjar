@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1b6e"/><stop offset="1" stop-color="#6a3da8"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe57a"/><stop offset="1" stop-color="#ffb320"/></linearGradient></defs>
+<rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <rect x="180" y="104" width="152" height="40" rx="16" fill="#ffb86b"/>
+  <rect x="136" y="144" width="240" height="300" rx="72" fill="#ffffff" fill-opacity=".16" stroke="#ffffff" stroke-opacity=".85" stroke-width="14"/>
+  <path d="M172 210v120" stroke="#ffffff" stroke-opacity=".55" stroke-width="14" stroke-linecap="round"/>
+  <polygon fill="url(#gold)" stroke="#fff6d6" stroke-width="6" stroke-linejoin="round" points="256.0,226.0 279.5,285.6 343.5,289.6 294.0,330.4 310.1,392.4 256.0,358.0 201.9,392.4 218.0,330.4 168.5,289.6 232.5,285.6"/>
+  <polygon fill="url(#gold)" points="196.0,364.0 205.4,389.1 232.1,390.3 211.2,406.9 218.3,432.7 196.0,418.0 173.7,432.7 180.8,406.9 159.9,390.3 186.6,389.1" transform="rotate(-12 196 400)"/>
+  <polygon fill="url(#gold)" points="326.0,370.0 334.2,390.7 356.4,392.1 339.3,406.3 344.8,427.9 326.0,416.0 307.2,427.9 312.7,406.3 295.6,392.1 317.8,390.7" transform="rotate(14 326 400)"/>
+</svg>

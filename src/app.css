@@ -1,0 +1,218 @@
+/* Twilight jar theme: tokens, page sky, shared bits (flying star, hidden text). */
+:root {
+  color-scheme: dark;
+  --sky-top: #1b1150;
+  --sky-mid: #33207a;
+  --sky-low: #5a2f94;
+  --ink: #1d1446;
+  --text: #fff8e7;
+  --muted: #cbbdf5;
+  --gold: #ffd54a;
+  --panel: #2a1d68;
+  --line: rgb(255 255 255 / 0.18);
+  font-family: ui-rounded, 'SF Pro Rounded', 'Nunito', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: 100%;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--sky-top);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Arabic glyphs read smaller: a bit larger, Arabic-capable fonts first. */
+:root[lang='ar'] {
+  font-family: 'Segoe UI', 'Noto Sans Arabic', Tahoma, system-ui, sans-serif;
+  font-size: 110%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100dvh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-low) 100%) fixed;
+}
+
+/* Tiny twinkling stars painted behind everything. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2.5px 2.5px at 12% 18%, #fff 60%, transparent),
+    radial-gradient(2px 2px at 28% 72%, #fff 60%, transparent),
+    radial-gradient(3px 3px at 46% 12%, #fff6c8 60%, transparent),
+    radial-gradient(2px 2px at 63% 38%, #fff 60%, transparent),
+    radial-gradient(2.5px 2.5px at 78% 84%, #fff 60%, transparent),
+    radial-gradient(3px 3px at 88% 22%, #fff6c8 60%, transparent),
+    radial-gradient(2px 2px at 8% 58%, #fff 60%, transparent),
+    radial-gradient(2.5px 2.5px at 54% 92%, #fff 60%, transparent),
+    radial-gradient(2px 2px at 36% 44%, #fff 60%, transparent),
+    radial-gradient(2.5px 2.5px at 70% 60%, #fff6c8 60%, transparent);
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+button {
+  font: inherit;
+}
+
+/* Native dialogs (reward, grown-up gate, setup): transparent shell, styled cards inside. */
+dialog {
+  max-inline-size: calc(100vw - 1rem);
+  max-block-size: calc(100dvh - 1rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+dialog:focus {
+  outline: none;
+}
+dialog::backdrop {
+  background: rgb(16 8 48 / 0.72);
+  backdrop-filter: blur(4px);
+}
+
+/* Cards inside dialogs, form fields and buttons shared by gate, setup and welcome. */
+.sheet {
+  display: grid;
+  gap: 1rem;
+  inline-size: min(34rem, calc(100vw - 1rem));
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 1.6rem;
+  background: linear-gradient(180deg, #33237d, var(--panel));
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.5);
+}
+.sheet.narrow {
+  inline-size: min(24rem, calc(100vw - 1rem));
+}
+.sheet.wide {
+  inline-size: min(46rem, calc(100vw - 1rem));
+}
+.sheet h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 800;
+}
+.field > span {
+  color: #ddd2ff;
+  font-size: 1rem;
+}
+input,
+select {
+  min-block-size: 3rem;
+  padding: 0 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 0.9rem;
+  background: rgb(0 0 0 / 0.22);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+input:focus-visible,
+select:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.btn {
+  min-block-size: 3rem;
+  min-inline-size: 3rem;
+  padding: 0 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.btn.primary {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: 0 4px 0 #c79a18;
+}
+.btn.primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c79a18;
+}
+.btn.ghost {
+  background: rgb(255 255 255 / 0.12);
+  color: var(--text);
+}
+.btn.round {
+  padding: 0;
+  background: rgb(255 255 255 / 0.12);
+  color: var(--text);
+  font-size: 1.2rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* The star that flies from a tile into the jar (see lib/motion.ts). */
+.flyer {
+  position: fixed;
+  /* physical, not logical: the flight path uses viewport x/y in every direction */
+  top: 0;
+  left: 0;
+  inline-size: 56px;
+  block-size: 56px;
+  offset-anchor: center;
+  offset-rotate: 0deg;
+  pointer-events: none;
+  z-index: 40;
+  filter: drop-shadow(0 0 12px rgb(255 213 74 / 0.9));
+}
+.flyer svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
