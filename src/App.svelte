@@ -72,7 +72,7 @@
 </svg>
 
 {#if kid}
-  <div class="app">
+  <div class="app" inert={isFull(kid) && !flying[kid.id]}>
     <header class="top">
       <h1 class="sr-only">{t('appName')}</h1>
       <KidTabs />

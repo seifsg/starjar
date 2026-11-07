@@ -1,18 +1,16 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import type { Kid } from '../lib/jar.ts';
   import { t } from '../lib/i18n.svelte.ts';
   import { app } from '../lib/app.svelte.ts';
   import { fanfare } from '../lib/sound.ts';
 
   // Full-jar celebration: names the reward; only "new jar" (or a grown-up) moves on.
+  // A plain overlay, not <dialog>: Esc and the back gesture can never dismiss it into a dead end.
   let { open, kid, onnew, onparent }: { open: boolean; kid: Kid; onnew: () => void; onparent: () => void } = $props();
 
-  let dlg: HTMLDialogElement;
   $effect(() => {
-    if (open && !dlg.open) {
-      dlg.showModal();
-      if (app.s.sound) fanfare();
-    } else if (!open && dlg.open) dlg.close();
+    if (open) untrack(() => app.s.sound && fanfare());
   });
 
   const COLORS = ['#ffd54a', '#ff8a9a', '#5fdcae', '#6cc2ff', '#c3a2ff', '#fff8e7'];
@@ -23,8 +21,8 @@
   });
 </script>
 
-<dialog bind:this={dlg} class="reward" aria-labelledby="reward-title" oncancel={(e) => e.preventDefault()} onclose={() => open && dlg.showModal()}>
-  {#if open}
+{#if open}
+  <div class="reward" role="dialog" aria-modal="true" aria-labelledby="reward-title">
     <!-- before the card: pieces fly out around it, never over the text -->
     <div class="burst" aria-hidden="true">
       {#each pieces as p, i (i)}
@@ -36,16 +34,26 @@
       <h2 id="reward-title">{t('jarFull')}</h2>
       <p class="who">{kid.emoji} {t('earned', { name: kid.name })}</p>
       <p class="prize">{kid.reward}</p>
-      <button class="go" onclick={onnew}>{t('newJar')} ✨</button>
-      <!-- after the main button so the dialog focuses "new jar" first -->
+      <!-- svelte-ignore a11y_autofocus: the overlay replaces the page, so its main action takes focus -->
+      <button class="go" onclick={onnew} autofocus>{t('newJar')} ✨</button>
       <button class="grown" onclick={onparent}>⚙️ {t('grownUps')}</button>
     </div>
-  {/if}
-</dialog>
+  </div>
+{/if}
 
 <style>
   .reward {
-    overflow: visible;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgb(16 8 48 / 0.72);
+    backdrop-filter: blur(4px);
+  }
+  .reward > * {
+    grid-area: 1 / 1;
   }
   .card {
     position: relative;
@@ -115,8 +123,7 @@
     cursor: pointer;
   }
   .burst {
-    position: absolute;
-    inset: 50% auto auto 50%;
+    position: relative;
     pointer-events: none;
   }
   .burst i {
