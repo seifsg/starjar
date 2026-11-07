@@ -5,7 +5,6 @@ export const en: Strings = {
   langName: 'English',
   dir: 'ltr',
   appName: 'Starjar',
-  tagline: 'Earn stars, fill the jar, win the reward.',
   chores: 'Chores',
   deeds: 'Good deeds',
   count: '{n} of {goal}',

@@ -61,10 +61,12 @@
 
       <section class="box" aria-labelledby="kid-title">
         <h3 id="kid-title">{kid.emoji} {kid.name}</h3>
-        <KidForm value={{ name: kid.name, emoji: kid.emoji, reward: kid.reward, goal: kid.goal }} submit={t('save')} onsave={save} />
+        {#key kid.id}
+          <KidForm value={{ name: kid.name, emoji: kid.emoji, reward: kid.reward, goal: kid.goal }} submit={t('save')} onsave={save} />
+        {/key}
         <div class="undo">
           <span>⭐ {num(kid.stars)} / {num(kid.goal)}</span>
-          <button class="btn ghost" disabled={!kid.stars} onclick={() => act(removeStar, kid.id, app.today)}>
+          <button class="btn ghost" disabled={!kid.stars} onclick={() => act((s) => removeStar(s, kid.id, app.today))}>
             ↩ {t('removeStar')}
           </button>
         </div>

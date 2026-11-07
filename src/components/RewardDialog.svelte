@@ -23,7 +23,7 @@
   });
 </script>
 
-<dialog bind:this={dlg} class="reward" aria-labelledby="reward-title" oncancel={(e) => e.preventDefault()}>
+<dialog bind:this={dlg} class="reward" aria-labelledby="reward-title" oncancel={(e) => e.preventDefault()} onclose={() => open && dlg.showModal()}>
   {#if open}
     <!-- before the card: pieces fly out around it, never over the text -->
     <div class="burst" aria-hidden="true">

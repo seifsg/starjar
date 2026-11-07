@@ -26,7 +26,7 @@ function note(freq: number, at: number, length: number, volume = 0.16, type: Osc
   osc.stop(start + length + 0.05);
 }
 
-/** Sparkle when a star is earned (A5, E6, A6). */
+/** Sparkle when a star is earned (notes A5, E6, A6). */
 export const chime = (): void => [880, 1318.5, 1760].forEach((f, i) => note(f, i * 0.07, 0.4));
 
 /** Soft plink when the star lands in the jar. */

@@ -6,12 +6,9 @@
   let { value, submit, onsave }: { value: KidInput; submit: string; onsave: (v: KidInput) => void } = $props();
 
   const AVATARS = ['🦊', '🐼', '🐯', '🐨', '🐰', '🦁', '🐸', '🐵', '🐻', '🐱', '🐶', '🦉'];
-  // Local draft, reset whenever a different kid is passed in.
+  // Local draft; callers remount the form per kid (`{#key}`), so unsaved edits survive other state changes.
   const copy = (): KidInput => ({ ...value });
   let draft = $state(copy());
-  $effect.pre(() => {
-    draft = copy();
-  });
 
   /** Hands the edited fields to the caller. */
   function save(e: SubmitEvent): void {

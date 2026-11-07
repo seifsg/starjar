@@ -7,7 +7,6 @@ export interface Strings {
   langName: string;
   dir: 'ltr' | 'rtl';
   appName: string;
-  tagline: string;
   chores: string;
   deeds: string;
   count: string;

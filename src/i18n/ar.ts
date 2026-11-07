@@ -5,7 +5,6 @@ export const ar: Strings = {
   langName: 'العربية',
   dir: 'rtl',
   appName: 'Starjar',
-  tagline: 'اجمع النجوم، املأ الجرّة، واربح المكافأة.',
   chores: 'المهام',
   deeds: 'أعمال طيبة',
   count: '{n} من {goal}',

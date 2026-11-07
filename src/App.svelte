@@ -36,7 +36,7 @@
     if (!kid || !jar) return;
     const id = kid.id;
     const before = kid.stars;
-    const after = act(award, id, taskId, app.today).kids.find((k) => k.id === id)?.stars ?? before;
+    const after = act((s) => award(s, id, taskId, app.today)).kids.find((k) => k.id === id)?.stars ?? before;
     if (after === before) return;
     flying[id] = (flying[id] ?? 0) + 1;
     if (app.s.sound) chime();

@@ -181,8 +181,9 @@ select:focus-visible,
 /* The star that flies from a tile into the jar (see lib/motion.ts). */
 .flyer {
   position: fixed;
-  inset-block-start: 0;
-  inset-inline-start: 0;
+  /* physical, not logical: the flight path uses viewport x/y in every direction */
+  top: 0;
+  left: 0;
   inline-size: 56px;
   block-size: 56px;
   offset-anchor: center;
