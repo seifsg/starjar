@@ -3,6 +3,7 @@
   import { award, doneToday, isFull, newJar } from './lib/jar.ts';
   import { num, plural, strings, t } from './lib/i18n.svelte.ts';
   import { fly } from './lib/motion.ts';
+  import { chime, plink } from './lib/sound.ts';
   import Jar from './components/Jar.svelte';
   import TaskGrid from './components/TaskGrid.svelte';
   import Notice from './components/Notice.svelte';
@@ -37,8 +38,11 @@
     const after = act(award, id, taskId, app.today).kids.find((k) => k.id === id)?.stars ?? before;
     if (after === before) return;
     flying[id] = (flying[id] ?? 0) + 1;
+    if (app.s.sound) chime();
+    navigator.vibrate?.(12);
     try {
       await fly(tile, jar.target(before));
+      if (app.s.sound) plink();
     } finally {
       flying[id] = (flying[id] ?? 1) - 1;
     }

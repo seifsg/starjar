@@ -1,14 +1,18 @@
 <script lang="ts">
   import type { Kid } from '../lib/jar.ts';
   import { t } from '../lib/i18n.svelte.ts';
+  import { app } from '../lib/app.svelte.ts';
+  import { fanfare } from '../lib/sound.ts';
 
   // Full-jar celebration: names the reward; only "new jar" (or a grown-up) moves on.
   let { open, kid, onnew, onparent }: { open: boolean; kid: Kid; onnew: () => void; onparent: () => void } = $props();
 
   let dlg: HTMLDialogElement;
   $effect(() => {
-    if (open && !dlg.open) dlg.showModal();
-    else if (!open && dlg.open) dlg.close();
+    if (open && !dlg.open) {
+      dlg.showModal();
+      if (app.s.sound) fanfare();
+    } else if (!open && dlg.open) dlg.close();
   });
 
   const COLORS = ['#ffd54a', '#ff8a9a', '#5fdcae', '#6cc2ff', '#c3a2ff', '#fff8e7'];

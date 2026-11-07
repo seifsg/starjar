@@ -1,6 +1,6 @@
 <script lang="ts">
   import { act, app } from '../lib/app.svelte.ts';
-  import { addKid, LIMITS, removeKid, removeStar, setCurrent, updateKid, type KidInput } from '../lib/jar.ts';
+  import { addKid, LIMITS, removeKid, removeStar, setCurrent, setSound, updateKid, type KidInput } from '../lib/jar.ts';
   import { num, t } from '../lib/i18n.svelte.ts';
   import KidForm from './KidForm.svelte';
   import TaskEditor from './TaskEditor.svelte';
@@ -84,8 +84,12 @@
         <TaskEditor />
       </section>
 
-      <section class="box" aria-label={t('language')}>
+      <section class="box" aria-label="{t('language')}, {t('sound')}">
         <LangPicker />
+        <label class="switch">
+          <input type="checkbox" checked={app.s.sound} onchange={(e) => act(setSound, e.currentTarget.checked)} />
+          <span>🔔 {t('sound')}</span>
+        </label>
         {#if install.ready}
           <button class="btn primary" onclick={install.run}>📲 {t('install')}</button>
         {/if}
@@ -133,6 +137,20 @@
   .danger {
     background: #ff6b81;
     color: var(--ink);
+  }
+  .switch {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-block-size: 3rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .switch input {
+    inline-size: 1.6rem;
+    block-size: 1.6rem;
+    min-block-size: 0;
+    accent-color: var(--gold);
   }
   .hint {
     margin: 0;

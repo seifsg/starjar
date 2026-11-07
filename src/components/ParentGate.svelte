@@ -9,9 +9,11 @@
   let b = $state(0);
   let answer = $state('');
   let wrong = $state(false);
+  let timer: ReturnType<typeof setTimeout> | undefined;
 
   $effect(() => {
     if (open && !dlg.open) {
+      clearTimeout(timer); // a wrong answer from a closed session must not close this one
       [a, b, answer, wrong] = [roll(), roll(), '', false];
       dlg.showModal();
     } else if (!open && dlg.open) dlg.close();
@@ -27,7 +29,7 @@
     e.preventDefault();
     if (Number(ascii(answer.trim())) === a * b) return onpass();
     wrong = true;
-    setTimeout(onclose, 1400);
+    timer = setTimeout(onclose, 1400);
   }
 </script>
 
