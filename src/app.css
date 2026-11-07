@@ -1,5 +1,105 @@
+/* Twilight jar theme: tokens, page sky, shared bits (flying star, hidden text). */
 :root {
   color-scheme: dark;
-  background: #1b1150;
-  color: #fff8e7;
+  --sky-top: #1b1150;
+  --sky-mid: #33207a;
+  --sky-low: #5a2f94;
+  --ink: #1d1446;
+  --text: #fff8e7;
+  --muted: #cbbdf5;
+  --gold: #ffd54a;
+  --panel: #2a1d68;
+  --line: rgb(255 255 255 / 0.18);
+  font-family: ui-rounded, 'SF Pro Rounded', 'Nunito', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  font-size: 100%;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--sky-top);
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100dvh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-low) 100%) fixed;
+}
+
+/* Tiny twinkling stars painted behind everything. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff 60%, transparent),
+    radial-gradient(1px 1px at 28% 72%, #fff 60%, transparent),
+    radial-gradient(2px 2px at 46% 12%, #fff6c8 60%, transparent),
+    radial-gradient(1px 1px at 63% 38%, #fff 60%, transparent),
+    radial-gradient(1.5px 1.5px at 78% 84%, #fff 60%, transparent),
+    radial-gradient(2px 2px at 88% 22%, #fff6c8 60%, transparent),
+    radial-gradient(1px 1px at 8% 58%, #fff 60%, transparent),
+    radial-gradient(1.5px 1.5px at 54% 92%, #fff 60%, transparent);
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+button {
+  font: inherit;
+}
+
+/* The star that flies from a tile into the jar (see lib/motion.ts). */
+.flyer {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 56px;
+  block-size: 56px;
+  offset-anchor: center;
+  offset-rotate: 0deg;
+  pointer-events: none;
+  z-index: 40;
+  filter: drop-shadow(0 0 12px rgb(255 213 74 / 0.9));
+}
+.flyer svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
