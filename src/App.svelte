@@ -9,6 +9,7 @@
   import RewardDialog from './components/RewardDialog.svelte';
   import ParentGate from './components/ParentGate.svelte';
   import ParentPanel from './components/ParentPanel.svelte';
+  import Welcome from './components/Welcome.svelte';
 
   /** Grown-up area: closed, asking the gate question, or open. */
   let parent = $state<'closed' | 'gate' | 'panel'>('closed');
@@ -89,11 +90,13 @@
     </main>
   </div>
   <RewardDialog
-    open={isFull(kid) && !flying[kid.id]}
+    open={isFull(kid) && !flying[kid.id] && parent === 'closed'}
     {kid}
     onnew={() => act(newJar, kid.id)}
     onparent={() => (parent = 'gate')}
   />
+{:else}
+  <Welcome />
 {/if}
 
 <ParentGate open={parent === 'gate'} onpass={() => (parent = 'panel')} onclose={closeFrom('gate')} />

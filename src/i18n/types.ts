@@ -49,6 +49,9 @@ export interface Strings {
   taskName: string;
   taskHint: string;
   kind: string;
+  chore: string;
+  deed: string;
+  icon: string;
   removeTask: string;
   save: string;
   language: string;
