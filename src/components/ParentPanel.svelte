@@ -5,6 +5,7 @@
   import KidForm from './KidForm.svelte';
   import TaskEditor from './TaskEditor.svelte';
   import LangPicker from './LangPicker.svelte';
+  import { install } from '../lib/install.svelte.ts';
 
   // Grown-ups' setup sheet, reached only through the gate.
   let { open, onclose }: { open: boolean; onclose: () => void } = $props();
@@ -85,6 +86,10 @@
 
       <section class="box" aria-label={t('language')}>
         <LangPicker />
+        {#if install.ready}
+          <button class="btn primary" onclick={install.run}>📲 {t('install')}</button>
+        {/if}
+        {#if !install.standalone}<p class="hint">{t('installHint')}</p>{/if}
       </section>
     {/if}
   </div>
@@ -128,6 +133,10 @@
   .danger {
     background: #ff6b81;
     color: var(--ink);
+  }
+  .hint {
+    margin: 0;
+    color: var(--muted);
   }
   h3 {
     margin: 0;

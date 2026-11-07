@@ -57,6 +57,7 @@ export const ar: Strings = {
   save: 'حفظ',
   language: 'اللغة',
   sound: 'الأصوات',
+  install: 'ثبّت التطبيق',
   installHint: 'نصيحة: أضف Starjar إلى الشاشة الرئيسية ليعمل دون إنترنت ويحفظ النجوم.',
   confirmRemove: 'حذف {name} مع كل النجوم؟',
   seed: [

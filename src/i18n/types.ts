@@ -55,6 +55,7 @@ export interface Strings {
   save: string;
   language: string;
   sound: string;
+  install: string;
   installHint: string;
   confirmRemove: string;
   seed: { label: string; emoji: string; kind: 'chore' | 'deed' }[];

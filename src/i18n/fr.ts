@@ -50,6 +50,7 @@ export const fr: Strings = {
   save: 'Enregistrer',
   language: 'Langue',
   sound: 'Sons',
+  install: 'Installer l’app',
   installHint: 'Astuce : ajoute Starjar à l’écran d’accueil pour l’utiliser hors ligne et garder ses étoiles.',
   confirmRemove: 'Retirer {name} et toutes ses étoiles ?',
   seed: [

@@ -50,6 +50,7 @@ export const en: Strings = {
   save: 'Save',
   language: 'Language',
   sound: 'Sounds',
+  install: 'Install the app',
   installHint: 'Tip: add Starjar to the home screen so it works offline and keeps its stars.',
   confirmRemove: 'Remove {name} and all their stars?',
   seed: [

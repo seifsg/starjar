@@ -1,6 +1,7 @@
 import { mount } from 'svelte';
 import { registerSW } from 'virtual:pwa-register';
 import App from './App.svelte';
+import './lib/install.svelte.ts';
 import './app.css';
 
 // Boots the app and the offline service worker.
