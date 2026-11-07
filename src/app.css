@@ -80,6 +80,93 @@ dialog::backdrop {
   backdrop-filter: blur(4px);
 }
 
+/* Cards inside dialogs, form fields and buttons shared by gate, setup and welcome. */
+.sheet {
+  display: grid;
+  gap: 1rem;
+  inline-size: min(34rem, calc(100vw - 1rem));
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 1.6rem;
+  background: linear-gradient(180deg, #33237d, var(--panel));
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.5);
+}
+.sheet.narrow {
+  inline-size: min(24rem, calc(100vw - 1rem));
+}
+.sheet.wide {
+  inline-size: min(46rem, calc(100vw - 1rem));
+}
+.sheet h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 800;
+}
+.field > span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+input,
+select {
+  min-block-size: 3rem;
+  padding: 0 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 0.9rem;
+  background: rgb(0 0 0 / 0.22);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+input:focus-visible,
+select:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.btn {
+  min-block-size: 3rem;
+  min-inline-size: 3rem;
+  padding: 0 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.btn.primary {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: 0 4px 0 #c79a18;
+}
+.btn.primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c79a18;
+}
+.btn.ghost {
+  background: rgb(255 255 255 / 0.12);
+  color: var(--text);
+}
+.btn.round {
+  padding: 0;
+  background: rgb(255 255 255 / 0.12);
+  color: var(--text);
+  font-size: 1.2rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* The star that flies from a tile into the jar (see lib/motion.ts). */
 .flyer {
   position: fixed;

@@ -2,8 +2,8 @@
   import type { Kid } from '../lib/jar.ts';
   import { t } from '../lib/i18n.svelte.ts';
 
-  // Full-jar celebration: names the reward; only "new jar" moves on.
-  let { open, kid, onnew }: { open: boolean; kid: Kid; onnew: () => void } = $props();
+  // Full-jar celebration: names the reward; only "new jar" (or a grown-up) moves on.
+  let { open, kid, onnew, onparent }: { open: boolean; kid: Kid; onnew: () => void; onparent: () => void } = $props();
 
   let dlg: HTMLDialogElement;
   $effect(() => {
@@ -27,6 +27,7 @@
       {/each}
     </div>
     <div class="card">
+      <button class="corner" aria-label={t('grownUps')} onclick={onparent}>⚙️</button>
       <p class="gift" aria-hidden="true">🎁</p>
       <h2 id="reward-title">{t('jarFull')}</h2>
       <p class="who">{kid.emoji} {t('earned', { name: kid.name })}</p>
@@ -93,6 +94,18 @@
   .go:active {
     transform: translateY(4px);
     box-shadow: 0 2px 0 #45238f;
+  }
+  .corner {
+    position: absolute;
+    inset-block-start: 0.6rem;
+    inset-inline-end: 0.6rem;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.06);
+    font-size: 1.3rem;
+    cursor: pointer;
   }
   .burst {
     position: absolute;

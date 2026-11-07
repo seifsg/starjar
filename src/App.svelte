@@ -7,6 +7,14 @@
   import TaskGrid from './components/TaskGrid.svelte';
   import Notice from './components/Notice.svelte';
   import RewardDialog from './components/RewardDialog.svelte';
+  import ParentGate from './components/ParentGate.svelte';
+  import ParentPanel from './components/ParentPanel.svelte';
+
+  /** Grown-up area: closed, asking the gate question, or open. */
+  let parent = $state<'closed' | 'gate' | 'panel'>('closed');
+  const closeFrom = (from: typeof parent) => () => {
+    if (parent === from) parent = 'closed';
+  };
 
   // Kid screen: the current kid's jar, status and task tiles.
   const kid = $derived(app.s.kids.find((k) => k.id === app.s.current));
@@ -60,6 +68,7 @@
   <div class="app">
     <header class="top">
       <h1 class="who"><span class="avatar" aria-hidden="true">{kid.emoji}</span>{kid.name}</h1>
+      <button class="btn round gear" aria-label={t('grownUps')} onclick={() => (parent = 'gate')}>⚙️</button>
     </header>
 
     <main class="stage">
@@ -79,8 +88,16 @@
       </section>
     </main>
   </div>
-  <RewardDialog open={isFull(kid) && !flying[kid.id]} {kid} onnew={() => act(newJar, kid.id)} />
+  <RewardDialog
+    open={isFull(kid) && !flying[kid.id]}
+    {kid}
+    onnew={() => act(newJar, kid.id)}
+    onparent={() => (parent = 'gate')}
+  />
 {/if}
+
+<ParentGate open={parent === 'gate'} onpass={() => (parent = 'panel')} onclose={closeFrom('gate')} />
+<ParentPanel open={parent === 'panel'} onclose={closeFrom('panel')} />
 
 <Notice />
 
@@ -102,6 +119,11 @@
     align-items: center;
     gap: 0.75rem;
     min-block-size: 3.5rem;
+  }
+  .gear {
+    margin-inline-start: auto;
+    inline-size: 3.25rem;
+    block-size: 3.25rem;
   }
   .who {
     display: flex;
