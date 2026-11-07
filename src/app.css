@@ -66,6 +66,20 @@ button {
   font: inherit;
 }
 
+/* Native dialogs (reward, grown-up gate, setup): transparent shell, styled cards inside. */
+dialog {
+  max-inline-size: calc(100vw - 1rem);
+  max-block-size: calc(100dvh - 1rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+dialog::backdrop {
+  background: rgb(16 8 48 / 0.72);
+  backdrop-filter: blur(4px);
+}
+
 /* The star that flies from a tile into the jar (see lib/motion.ts). */
 .flyer {
   position: fixed;

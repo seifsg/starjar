@@ -1,11 +1,12 @@
 <script lang="ts">
   import { act, app } from './lib/app.svelte.ts';
-  import { award, doneToday, isFull } from './lib/jar.ts';
+  import { award, doneToday, isFull, newJar } from './lib/jar.ts';
   import { dir, num, plural, t } from './lib/i18n.svelte.ts';
   import { fly } from './lib/motion.ts';
   import Jar from './components/Jar.svelte';
   import TaskGrid from './components/TaskGrid.svelte';
   import Notice from './components/Notice.svelte';
+  import RewardDialog from './components/RewardDialog.svelte';
 
   // Kid screen: the current kid's jar, status and task tiles.
   const kid = $derived(app.s.kids.find((k) => k.id === app.s.current));
@@ -78,6 +79,7 @@
       </section>
     </main>
   </div>
+  <RewardDialog open={isFull(kid) && !flying[kid.id]} {kid} onnew={() => act(newJar, kid.id)} />
 {/if}
 
 <Notice />
