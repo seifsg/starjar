@@ -1,6 +1,6 @@
 <script lang="ts">
   import { act, app } from '../lib/app.svelte.ts';
-  import { removeStar, updateKid, type KidInput } from '../lib/jar.ts';
+  import { addKid, LIMITS, removeKid, removeStar, setCurrent, updateKid, type KidInput } from '../lib/jar.ts';
   import { num, t } from '../lib/i18n.svelte.ts';
   import KidForm from './KidForm.svelte';
   import TaskEditor from './TaskEditor.svelte';
@@ -18,6 +18,18 @@
   const save = (v: KidInput): void => {
     if (kid) act(updateKid, kid.id, v);
   };
+
+  let adding = $state(false);
+  let confirming = $state(false);
+  const fresh: KidInput = { name: '', emoji: '🐼', reward: '', goal: 10 };
+  const add = (v: KidInput): void => {
+    act(addKid, v);
+    adding = false;
+  };
+  const pick = (id: string): void => {
+    act(setCurrent, id);
+    confirming = false;
+  };
 </script>
 
 <dialog bind:this={dlg} class="panel" aria-labelledby="panel-title" onclose={onclose}>
@@ -28,6 +40,19 @@
     </header>
 
     {#if open && kid}
+      <section class="box" aria-labelledby="kids-title">
+        <h3 id="kids-title">{t('kids')}</h3>
+        <div class="chips">
+          {#each app.s.kids as k (k.id)}
+            <button class="btn ghost" aria-pressed={k.id === kid.id} onclick={() => pick(k.id)}>{k.emoji} {k.name}</button>
+          {/each}
+          {#if app.s.kids.length < LIMITS.kidsMax}
+            <button class="btn ghost" aria-expanded={adding} onclick={() => (adding = !adding)}>＋ {t('addKid')}</button>
+          {/if}
+        </div>
+        {#if adding}<KidForm value={fresh} submit={t('addKid')} onsave={add} />{/if}
+      </section>
+
       <section class="box" aria-labelledby="kid-title">
         <h3 id="kid-title">{kid.emoji} {kid.name}</h3>
         <KidForm value={{ name: kid.name, emoji: kid.emoji, reward: kid.reward, goal: kid.goal }} submit={t('save')} onsave={save} />
@@ -37,6 +62,19 @@
             ↩ {t('removeStar')}
           </button>
         </div>
+        {#if app.s.kids.length > 1}
+          <div class="undo">
+            {#if confirming}
+              <span role="alert">{t('confirmRemove', { name: kid.name })}</span>
+              <span class="actions">
+                <button class="btn ghost" onclick={() => (confirming = false)}>{t('cancel')}</button>
+                <button class="btn danger" onclick={() => ((confirming = false), act(removeKid, kid.id))}>{t('removeKid')}</button>
+              </span>
+            {:else}
+              <button class="btn ghost" onclick={() => (confirming = true)}>🗑️ {t('removeKid')}</button>
+            {/if}
+          </div>
+        {/if}
       </section>
 
       <section class="box" aria-labelledby="tasks-title">
@@ -72,6 +110,19 @@
     padding: 1.1rem;
     border-radius: 1.2rem;
     background: rgb(0 0 0 / 0.16);
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .chips [aria-pressed='true'] {
+    outline: 2px solid var(--gold);
+    background: rgb(255 213 74 / 0.2);
+  }
+  .danger {
+    background: #ff6b81;
+    color: var(--ink);
   }
   h3 {
     margin: 0;

@@ -10,6 +10,7 @@
   import ParentGate from './components/ParentGate.svelte';
   import ParentPanel from './components/ParentPanel.svelte';
   import Welcome from './components/Welcome.svelte';
+  import KidTabs from './components/KidTabs.svelte';
 
   /** Grown-up area: closed, asking the gate question, or open. */
   let parent = $state<'closed' | 'gate' | 'panel'>('closed');
@@ -68,7 +69,8 @@
 {#if kid}
   <div class="app">
     <header class="top">
-      <h1 class="who"><span class="avatar" aria-hidden="true">{kid.emoji}</span>{kid.name}</h1>
+      <h1 class="sr-only">{t('appName')}</h1>
+      <KidTabs />
       <button class="btn round gear" aria-label={t('grownUps')} onclick={() => (parent = 'gate')}>⚙️</button>
     </header>
 
@@ -127,16 +129,6 @@
     margin-inline-start: auto;
     inline-size: 3.25rem;
     block-size: 3.25rem;
-  }
-  .who {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0;
-    font-size: 1.6rem;
-  }
-  .avatar {
-    font-size: 2rem;
   }
   .stage {
     display: grid;
