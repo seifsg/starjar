@@ -102,10 +102,37 @@
     color: var(--gold);
   }
   input[type='range'] {
+    appearance: none;
     min-block-size: 3rem;
     padding: 0;
     border: 0;
     background: none;
-    accent-color: var(--gold);
+    cursor: pointer;
+  }
+  input[type='range']::-webkit-slider-runnable-track {
+    block-size: 0.6rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.22);
+  }
+  input[type='range']::-moz-range-track {
+    block-size: 0.6rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.22);
+  }
+  input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    margin-block-start: -0.575rem;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  input[type='range']::-moz-range-thumb {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: var(--gold);
   }
 </style>

@@ -38,7 +38,7 @@
       <p class="prize">{kid.reward}</p>
       <button class="go" onclick={onnew}>{t('newJar')} ✨</button>
       <!-- after the main button so the dialog focuses "new jar" first -->
-      <button class="corner" aria-label={t('grownUps')} onclick={onparent}>⚙️</button>
+      <button class="grown" onclick={onparent}>⚙️ {t('grownUps')}</button>
     </div>
   {/if}
 </dialog>
@@ -103,17 +103,15 @@
     transform: translateY(4px);
     box-shadow: 0 2px 0 #45238f;
   }
-  .corner {
-    position: absolute;
-    inset-block-start: 0.6rem;
-    inset-inline-end: 0.6rem;
-    inline-size: 3rem;
-    block-size: 3rem;
+  .grown {
+    min-block-size: 3rem;
+    padding: 0 1rem;
     border: 0;
-    border-radius: 50%;
-    background: rgb(0 0 0 / 0.06);
-    font-size: 1.3rem;
-    opacity: 0.45;
+    border-radius: 999px;
+    background: none;
+    color: #5b4a8a;
+    font-weight: 800;
+    font-size: 0.95rem;
     cursor: pointer;
   }
   .burst {

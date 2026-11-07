@@ -152,14 +152,15 @@
     cursor: pointer;
   }
   .switch input {
-    inline-size: 1.6rem;
-    block-size: 1.6rem;
+    inline-size: 1.9rem;
+    block-size: 1.9rem;
     min-block-size: 0;
     accent-color: var(--gold);
   }
   .hint {
     margin: 0;
-    color: var(--muted);
+    color: #ddd2ff;
+    font-size: 0.95rem;
   }
   h3 {
     margin: 0;

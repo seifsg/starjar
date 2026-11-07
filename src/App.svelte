@@ -87,7 +87,7 @@
         <p class="count" dir="ltr" aria-hidden="true"><b>{num(shown)}</b><span>/ {num(kid.goal)}</span></p>
         <p class="to-go" aria-live="polite">
           <span aria-hidden="true">🎁</span>
-          {isFull(kid) ? t('jarFull') : plural('toGo', kid.goal - kid.stars, { reward: kid.reward })}
+          {shown >= kid.goal ? t('jarFull') : plural('toGo', kid.goal - shown, { reward: kid.reward })}
         </p>
       </section>
 

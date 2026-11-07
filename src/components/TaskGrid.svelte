@@ -59,7 +59,7 @@
   }
   ul {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, clamp(10rem, 15vw, 13.5rem)), 1fr));
     gap: 0.75rem;
     margin: 0;
     padding: 0;
@@ -73,15 +73,15 @@
     justify-content: center;
     gap: 0.35rem;
     inline-size: 100%;
-    min-block-size: 7rem;
+    min-block-size: clamp(7rem, 11vw, 9rem);
     padding: 0.8rem 0.6rem;
     border: 0;
     border-radius: 1.4rem;
     background: var(--tile);
     color: var(--ink);
     font: inherit;
-    font-weight: 800;
-    font-size: 1.12rem;
+    font-weight: 900;
+    font-size: clamp(1.12rem, 1.4vw, 1.35rem);
     line-height: 1.15;
     text-align: center;
     cursor: pointer;
@@ -91,7 +91,7 @@
     transition:
       transform 120ms ease,
       box-shadow 120ms ease,
-      opacity 200ms ease;
+      filter 200ms ease;
     -webkit-tap-highlight-color: transparent;
   }
   .tile:active:not(:disabled) {
@@ -108,12 +108,10 @@
     cursor: default;
   }
   .tile.done {
-    opacity: 0.6;
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 color-mix(in srgb, var(--tile) 62%, #000);
+    filter: saturate(0.45);
   }
   .emoji {
-    font-size: 2.5rem;
+    font-size: clamp(2.5rem, 3.4vw, 3.2rem);
     line-height: 1;
   }
   .check {
@@ -125,8 +123,8 @@
     inline-size: 1.7rem;
     block-size: 1.7rem;
     border-radius: 50%;
-    background: var(--gold);
-    color: var(--ink);
+    background: #fff;
+    color: #128a5a;
     font-weight: 900;
     box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
     font-size: 1.05rem;
