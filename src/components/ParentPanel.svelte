@@ -4,6 +4,7 @@
   import { num, t } from '../lib/i18n.svelte.ts';
   import KidForm from './KidForm.svelte';
   import TaskEditor from './TaskEditor.svelte';
+  import LangPicker from './LangPicker.svelte';
 
   // Grown-ups' setup sheet, reached only through the gate.
   let { open, onclose }: { open: boolean; onclose: () => void } = $props();
@@ -80,6 +81,10 @@
       <section class="box" aria-labelledby="tasks-title">
         <h3 id="tasks-title">{t('tasks')}</h3>
         <TaskEditor />
+      </section>
+
+      <section class="box" aria-label={t('language')}>
+        <LangPicker />
       </section>
     {/if}
   </div>

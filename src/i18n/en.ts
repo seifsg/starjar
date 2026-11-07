@@ -1,8 +1,9 @@
 import type { Strings } from './types.ts';
 
-// English strings. Copy this file to add a language.
+// English strings. To add a language: copy this file, translate, register it in index.ts.
 export const en: Strings = {
   langName: 'English',
+  dir: 'ltr',
   appName: 'Starjar',
   tagline: 'Earn stars, fill the jar, win the reward.',
   chores: 'Chores',

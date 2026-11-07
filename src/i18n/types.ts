@@ -1,5 +1,3 @@
-import type { TaskInput } from '../lib/jar.ts';
-
 // Shape every language file must match; a missing key fails the type check.
 
 /** Text per plural category (Intl.PluralRules); `other` is required. */
@@ -7,6 +5,7 @@ export type Plural = { other: string } & Partial<Record<Intl.LDMLPluralRule, str
 
 export interface Strings {
   langName: string;
+  dir: 'ltr' | 'rtl';
   appName: string;
   tagline: string;
   chores: string;
@@ -58,5 +57,5 @@ export interface Strings {
   sound: string;
   installHint: string;
   confirmRemove: string;
-  seed: TaskInput[];
+  seed: { label: string; emoji: string; kind: 'chore' | 'deed' }[];
 }

@@ -1,7 +1,7 @@
 // Jar rules: the only code that changes app state. Pure: no clock, storage or DOM.
 // Every function returns a new State and throws on input the UI should never send.
+import { LANGS, type Lang } from '../i18n/index.ts';
 
-export type Lang = 'en' | 'ar' | 'fr';
 export type Kind = 'chore' | 'deed';
 export interface Task { id: string; label: string; emoji: string; kind: Kind }
 export interface Kid {
@@ -13,7 +13,6 @@ export type KidInput = Pick<Kid, 'name' | 'emoji' | 'reward' | 'goal'>;
 export type TaskInput = Pick<Task, 'label' | 'emoji' | 'kind'>;
 
 export const LIMITS = { goalMin: 5, goalMax: 30, kidsMax: 6, tasksMax: 24, text: 40, emoji: 16 } as const;
-export const LANGS: readonly Lang[] = ['en', 'ar', 'fr'];
 
 /** Stars needed to fill a jar is reached. */
 export const isFull = (k: Kid): boolean => k.stars >= k.goal;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { act, app } from './lib/app.svelte.ts';
   import { award, doneToday, isFull, newJar } from './lib/jar.ts';
-  import { dir, num, plural, t } from './lib/i18n.svelte.ts';
+  import { num, plural, strings, t } from './lib/i18n.svelte.ts';
   import { fly } from './lib/motion.ts';
   import Jar from './components/Jar.svelte';
   import TaskGrid from './components/TaskGrid.svelte';
@@ -26,7 +26,7 @@
 
   $effect(() => {
     document.documentElement.lang = app.s.lang;
-    document.documentElement.dir = dir(app.s.lang);
+    document.documentElement.dir = strings().dir;
   });
 
   /** Awards a star for a tapped tile and flies it into the jar. */

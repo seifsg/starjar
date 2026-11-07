@@ -1,4 +1,5 @@
-import { LANGS, type Lang, type State } from './jar.ts';
+import type { State } from './jar.ts';
+import { LANGS, type Lang } from '../i18n/index.ts';
 import { KEY, load, persist, save } from './storage.ts';
 
 // App state owner: holds the current State, runs rules, saves, tracks "today".

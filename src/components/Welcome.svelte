@@ -3,6 +3,7 @@
   import { addKid, addTask, type KidInput, type State } from '../lib/jar.ts';
   import { strings, t } from '../lib/i18n.svelte.ts';
   import KidForm from './KidForm.svelte';
+  import LangPicker from './LangPicker.svelte';
 
   // First run: set up the first kid's jar; starter chores and good deeds come with it.
   const start = (v: KidInput): void => {
@@ -23,6 +24,7 @@
     </svg>
     <h1>{t('welcomeTitle')}</h1>
     <p class="lead">{t('welcomeLead')}</p>
+    <LangPicker />
     <KidForm value={{ name: '', emoji: '🦊', reward: '', goal: 10 }} submit={`${t('start')} ✨`} onsave={start} />
   </div>
 </main>

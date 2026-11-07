@@ -1,16 +1,15 @@
-import type { Lang } from './jar.ts';
 import { app } from './app.svelte.ts';
-import { en } from '../i18n/en.ts';
+import { packs, type Lang } from '../i18n/index.ts';
 import type { Plural, Strings } from '../i18n/types.ts';
 
-// Text lookup for the current language: plain text, plurals, numbers, direction.
+// Text lookup for the current language: plain text, plurals, numbers.
 
 type TextKey = { [K in keyof Strings]: Strings[K] extends string ? K : never }[keyof Strings];
 type PluralKey = { [K in keyof Strings]: Strings[K] extends Plural ? K : never }[keyof Strings];
 type Vars = Record<string, string | number>;
 
 /** Strings of the current language. */
-export const strings = (): Strings => en;
+export const strings = (): Strings => packs[app.s.lang];
 
 const numbers = new Map<Lang, Intl.NumberFormat>();
 const plurals = new Map<Lang, Intl.PluralRules>();
@@ -34,5 +33,3 @@ export function plural(key: PluralKey, n: number, vars?: Vars): string {
   const p = strings()[key];
   return fill(p[cached(plurals, (l) => new Intl.PluralRules(l)).select(n)] ?? p.other, { n, ...vars });
 }
-
-export const dir = (lang: Lang): 'rtl' | 'ltr' => (lang === 'ar' ? 'rtl' : 'ltr');

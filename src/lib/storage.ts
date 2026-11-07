@@ -1,4 +1,5 @@
-import { normalize, type Lang, type State } from './jar.ts';
+import { normalize, type State } from './jar.ts';
+import type { Lang } from '../i18n/index.ts';
 
 // Device-only persistence: one JSON value in localStorage. Errors are returned, never swallowed.
 export const KEY = 'starjar';
