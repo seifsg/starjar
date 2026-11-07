@@ -27,7 +27,8 @@ export default defineConfig({
           { src: 'maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
-      workbox: { globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'] },
+      // New deploys take over at once (a tablet left open would otherwise never update).
+      workbox: { globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'], skipWaiting: true, clientsClaim: true },
     }),
   ],
   server: { port: 5317, strictPort: true },
