@@ -11,6 +11,7 @@ function audio(): AudioContext {
 
 /** One soft note: quick attack, exponential fade. */
 function note(freq: number, at: number, length: number, volume = 0.16, type: OscillatorType = 'triangle'): void {
+  if (!(navigator.userActivation?.hasBeenActive ?? true)) return; // e.g. a full jar on reload: no tap yet
   const c = audio();
   const start = c.currentTime + at;
   const osc = c.createOscillator();

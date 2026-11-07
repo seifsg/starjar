@@ -14,7 +14,7 @@ export type TaskInput = Pick<Task, 'label' | 'emoji' | 'kind'>;
 
 export const LIMITS = { goalMin: 5, goalMax: 30, kidsMax: 6, tasksMax: 24, text: 40, emoji: 16 } as const;
 
-/** Stars needed to fill a jar is reached. */
+/** True once the jar holds its goal of stars. */
 export const isFull = (k: Kid): boolean => k.stars >= k.goal;
 
 /** Task ids this kid already earned a star for today. */
@@ -38,6 +38,7 @@ export const removeStar = (s: State, kidId: string, today: string): State =>
 export const newJar = (s: State, kidId: string): State =>
   mapKid(s, kidId, (k) => (must(isFull(k), 'jar is not full'), { ...k, stars: 0 }));
 
+/** Adds a kid with an empty jar and shows their jar. */
 export function addKid(s: State, input: KidInput): State {
   must(s.kids.length < LIMITS.kidsMax, `at most ${LIMITS.kidsMax} kids`);
   const kid: Kid = { id: crypto.randomUUID(), ...kidFields(input), stars: 0, day: '', done: [] };
@@ -51,28 +52,33 @@ export const updateKid = (s: State, id: string, patch: Partial<KidInput>): State
     return { ...next, stars: Math.min(next.stars, next.goal) };
   });
 
+/** Removes a kid; the last kid stays so the app always has a jar. */
 export function removeKid(s: State, id: string): State {
   must(s.kids.length > 1, 'the last kid cannot be removed');
   const kids = without(s.kids, id);
   return { ...s, kids, current: s.current === id ? kids[0]!.id : s.current };
 }
 
+/** Adds a chore or good deed for every kid. */
 export function addTask(s: State, input: TaskInput): State {
   must(s.tasks.length < LIMITS.tasksMax, `at most ${LIMITS.tasksMax} tasks`);
   return { ...s, tasks: [...s.tasks, { id: crypto.randomUUID(), ...taskFields(input) }] };
 }
 
-export const updateTask = (s: State, id: string, patch: Partial<TaskInput>): State => ({
+/** Renames or re-types a task. */
+export const updateTask = (s: State, id: string, patch: Partial<TaskInput>): State => (find(s.tasks, id), {
   ...s,
   tasks: s.tasks.map((t) => (t.id === id ? { ...t, ...taskFields({ ...t, ...patch }) } : t)),
 });
 
+/** Removes a task and forgets it in today's ticks. */
 export const removeTask = (s: State, id: string): State => ({
   ...s,
   tasks: without(s.tasks, id),
   kids: s.kids.map((k) => ({ ...k, done: k.done.filter((d) => d !== id) })),
 });
 
+// Settings: which jar shows, sound on/off, language.
 export const setCurrent = (s: State, id: string): State => (find(s.kids, id), { ...s, current: id });
 export const setSound = (s: State, sound: boolean): State => ({ ...s, sound });
 export const setLang = (s: State, lang: Lang): State => (must(LANGS.includes(lang), `unknown language ${lang}`), { ...s, lang });
@@ -97,19 +103,23 @@ export function normalize(raw: unknown, lang: Lang): State {
 }
 
 // Entry checks: wrong input from the UI is a bug, so it fails loudly.
+/** Validated kid fields. */
 function kidFields(i: KidInput): KidInput {
   must(Number.isInteger(i.goal) && i.goal >= LIMITS.goalMin && i.goal <= LIMITS.goalMax, `goal ${LIMITS.goalMin} to ${LIMITS.goalMax}`);
   return { name: text(i.name), emoji: text(i.emoji, LIMITS.emoji), reward: text(i.reward), goal: i.goal };
 }
+/** Validated task fields. */
 const taskFields = (i: TaskInput): TaskInput => (
   must(i.kind === 'chore' || i.kind === 'deed', `unknown kind ${i.kind}`),
   { label: text(i.label), emoji: text(i.emoji, LIMITS.emoji), kind: i.kind });
 
+/** Trimmed text within limits. */
 function text(v: string, max: number = LIMITS.text): string {
   const t = v.trim();
   must(t.length > 0 && t.length <= max, `text must be 1 to ${max} characters`);
   return t;
 }
+/** Loud assertion for impossible input. */
 function must(ok: boolean, why: string): void {
   if (!ok) throw new RangeError(`Starjar: ${why}`);
 }

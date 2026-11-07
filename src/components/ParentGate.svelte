@@ -25,6 +25,7 @@
   /** Arabic-Indic and Persian digits typed on a phone become 0-9. */
   const ascii = (s: string): string => s.replace(/[٠-٩۰-۹]/g, (d) => String(d.charCodeAt(0) & 0xf));
 
+  /** Opens setup on the right answer; a wrong one shows a hint, then closes. */
   function submit(e: SubmitEvent): void {
     e.preventDefault();
     if (Number(ascii(answer.trim())) === a * b) return onpass();

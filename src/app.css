@@ -18,6 +18,12 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* Arabic glyphs read smaller: a bit larger, Arabic-capable fonts first. */
+:root[lang='ar'] {
+  font-family: 'Segoe UI', 'Noto Sans Arabic', Tahoma, system-ui, sans-serif;
+  font-size: 110%;
+}
+
 *,
 *::before,
 *::after {
@@ -39,19 +45,21 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background-image:
-    radial-gradient(1.5px 1.5px at 12% 18%, #fff 60%, transparent),
-    radial-gradient(1px 1px at 28% 72%, #fff 60%, transparent),
-    radial-gradient(2px 2px at 46% 12%, #fff6c8 60%, transparent),
-    radial-gradient(1px 1px at 63% 38%, #fff 60%, transparent),
-    radial-gradient(1.5px 1.5px at 78% 84%, #fff 60%, transparent),
-    radial-gradient(2px 2px at 88% 22%, #fff6c8 60%, transparent),
-    radial-gradient(1px 1px at 8% 58%, #fff 60%, transparent),
-    radial-gradient(1.5px 1.5px at 54% 92%, #fff 60%, transparent);
+    radial-gradient(2.5px 2.5px at 12% 18%, #fff 60%, transparent),
+    radial-gradient(2px 2px at 28% 72%, #fff 60%, transparent),
+    radial-gradient(3px 3px at 46% 12%, #fff6c8 60%, transparent),
+    radial-gradient(2px 2px at 63% 38%, #fff 60%, transparent),
+    radial-gradient(2.5px 2.5px at 78% 84%, #fff 60%, transparent),
+    radial-gradient(3px 3px at 88% 22%, #fff6c8 60%, transparent),
+    radial-gradient(2px 2px at 8% 58%, #fff 60%, transparent),
+    radial-gradient(2.5px 2.5px at 54% 92%, #fff 60%, transparent),
+    radial-gradient(2px 2px at 36% 44%, #fff 60%, transparent),
+    radial-gradient(2.5px 2.5px at 70% 60%, #fff6c8 60%, transparent);
   animation: twinkle 4s ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-  from { opacity: 0.45; }
+  from { opacity: 0.55; }
   to { opacity: 1; }
 }
 
@@ -107,8 +115,8 @@ dialog::backdrop {
   font-weight: 800;
 }
 .field > span {
-  color: var(--muted);
-  font-size: 0.95rem;
+  color: #ddd2ff;
+  font-size: 1rem;
 }
 input,
 select {

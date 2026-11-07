@@ -31,10 +31,11 @@
     align-items: center;
     gap: 0.45rem;
     min-block-size: 3.25rem;
-    padding: 0 1rem 0 0.5rem;
+    padding-block: 0;
+    padding-inline: 0.5rem 1rem;
     border: 2px solid transparent;
     border-radius: 999px;
-    background: rgb(255 255 255 / 0.1);
+    background: rgb(255 255 255 / 0.14);
     color: var(--text);
     font-weight: 900;
     font-size: 1.15rem;

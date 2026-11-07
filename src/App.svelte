@@ -15,6 +15,7 @@
 
   /** Grown-up area: closed, asking the gate question, or open. */
   let parent = $state<'closed' | 'gate' | 'panel'>('closed');
+  /** Close handler that ignores a stale close event from the other dialog. */
   const closeFrom = (from: typeof parent) => () => {
     if (parent === from) parent = 'closed';
   };
@@ -83,7 +84,7 @@
         <div class="jar-box">
           <Jar bind:this={jar} goal={kid.goal} {shown} />
         </div>
-        <p class="count" aria-hidden="true"><b>{num(shown)}</b><span>/ {num(kid.goal)}</span></p>
+        <p class="count" dir="ltr" aria-hidden="true"><b>{num(shown)}</b><span>/ {num(kid.goal)}</span></p>
         <p class="to-go" aria-live="polite">
           <span aria-hidden="true">🎁</span>
           {isFull(kid) ? t('jarFull') : plural('toGo', kid.goal - kid.stars, { reward: kid.reward })}
@@ -144,7 +145,7 @@
     gap: 0.25rem;
   }
   .jar-box {
-    block-size: clamp(14rem, 42dvh, 26rem);
+    block-size: clamp(13rem, 36dvh, 26rem);
     aspect-ratio: 200 / 260;
   }
   .count {
@@ -162,11 +163,15 @@
     text-shadow: 0 0 18px rgb(255 213 74 / 0.6);
   }
   .to-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     margin: 0;
-    padding: 0.55rem 1rem;
+    padding: 0.6rem 1.1rem;
     border-radius: 999px;
-    background: rgb(255 255 255 / 0.12);
+    background: rgb(255 255 255 / 0.16);
     font-weight: 800;
+    font-size: 1.15rem;
     text-align: center;
   }
   @media (min-width: 56rem) {

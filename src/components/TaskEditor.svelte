@@ -10,6 +10,7 @@
   let fresh = $state<TaskInput>({ label: '', emoji: '⭐', kind: 'chore' });
   const full = $derived(app.s.tasks.length >= LIMITS.tasksMax);
 
+  /** Adds the new task and clears its name for the next one. */
   function add(e: SubmitEvent): void {
     e.preventDefault();
     act(addTask, fresh);

@@ -42,19 +42,24 @@
 {/each}
 
 <style>
+  /* Arabic letters join: no letter-spacing or case change there. */
+  :global(:root[lang='ar']) h2 {
+    letter-spacing: normal;
+    font-size: 1.2rem;
+  }
   .group + .group {
     margin-block-start: 1.25rem;
   }
   h2 {
-    margin: 0 0 0.6rem;
-    font-size: 1.05rem;
+    margin: 0 0 0.7rem;
+    font-size: 1.2rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--muted);
   }
   ul {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
     gap: 0.75rem;
     margin: 0;
     padding: 0;
@@ -68,7 +73,7 @@
     justify-content: center;
     gap: 0.35rem;
     inline-size: 100%;
-    min-block-size: 6.5rem;
+    min-block-size: 7rem;
     padding: 0.8rem 0.6rem;
     border: 0;
     border-radius: 1.4rem;
@@ -76,7 +81,7 @@
     color: var(--ink);
     font: inherit;
     font-weight: 800;
-    font-size: 1.02rem;
+    font-size: 1.12rem;
     line-height: 1.15;
     text-align: center;
     cursor: pointer;
@@ -86,7 +91,7 @@
     transition:
       transform 120ms ease,
       box-shadow 120ms ease,
-      filter 200ms ease;
+      opacity 200ms ease;
     -webkit-tap-highlight-color: transparent;
   }
   .tile:active:not(:disabled) {
@@ -103,12 +108,12 @@
     cursor: default;
   }
   .tile.done {
-    filter: saturate(0.35) brightness(0.8);
+    opacity: 0.6;
     transform: translateY(4px);
     box-shadow: 0 2px 0 color-mix(in srgb, var(--tile) 62%, #000);
   }
   .emoji {
-    font-size: 2.3rem;
+    font-size: 2.5rem;
     line-height: 1;
   }
   .check {
@@ -120,8 +125,10 @@
     inline-size: 1.7rem;
     block-size: 1.7rem;
     border-radius: 50%;
-    background: #fff;
-    color: #1f9d6b;
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 900;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
     font-size: 1.05rem;
   }
   .c0 { --tile: #ff8a9a; }

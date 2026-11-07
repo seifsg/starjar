@@ -18,25 +18,27 @@
   const COLORS = ['#ffd54a', '#ff8a9a', '#5fdcae', '#6cc2ff', '#c3a2ff', '#fff8e7'];
   const pieces = Array.from({ length: 32 }, (_, i) => {
     const a = (i / 32) * Math.PI * 2 + Math.random() * 0.4;
-    const d = 120 + Math.random() * 140;
-    return { x: Math.cos(a) * d, y: Math.sin(a) * d - 60, r: Math.random() * 720 - 360, c: COLORS[i % COLORS.length], delay: Math.random() * 120 };
+    const d = 230 + Math.random() * 170;
+    return { x: Math.cos(a) * d, y: Math.sin(a) * d * 0.75 - 90, r: Math.random() * 720 - 360, c: COLORS[i % COLORS.length], delay: Math.random() * 120 };
   });
 </script>
 
 <dialog bind:this={dlg} class="reward" aria-labelledby="reward-title" oncancel={(e) => e.preventDefault()}>
   {#if open}
+    <!-- before the card: pieces fly out around it, never over the text -->
     <div class="burst" aria-hidden="true">
       {#each pieces as p, i (i)}
         <i style:--x="{p.x}px" style:--y="{p.y}px" style:--r="{p.r}deg" style:--c={p.c} style:--d="{p.delay}ms"></i>
       {/each}
     </div>
     <div class="card">
-      <button class="corner" aria-label={t('grownUps')} onclick={onparent}>⚙️</button>
       <p class="gift" aria-hidden="true">🎁</p>
       <h2 id="reward-title">{t('jarFull')}</h2>
       <p class="who">{kid.emoji} {t('earned', { name: kid.name })}</p>
       <p class="prize">{kid.reward}</p>
       <button class="go" onclick={onnew}>{t('newJar')} ✨</button>
+      <!-- after the main button so the dialog focuses "new jar" first -->
+      <button class="corner" aria-label={t('grownUps')} onclick={onparent}>⚙️</button>
     </div>
   {/if}
 </dialog>
@@ -56,7 +58,9 @@
     background: linear-gradient(160deg, #fff6d6, #ffd9a8);
     color: var(--ink);
     text-align: center;
-    box-shadow: 0 30px 80px rgb(0 0 0 / 0.5);
+    box-shadow:
+      0 0 60px rgb(255 213 74 / 0.35),
+      0 30px 80px rgb(0 0 0 / 0.5);
     animation: pop 600ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
   }
   .gift {
@@ -109,16 +113,18 @@
     border-radius: 50%;
     background: rgb(0 0 0 / 0.06);
     font-size: 1.3rem;
+    opacity: 0.45;
     cursor: pointer;
   }
   .burst {
     position: absolute;
     inset: 50% auto auto 50%;
+    pointer-events: none;
   }
   .burst i {
     position: absolute;
-    inline-size: 0.7rem;
-    block-size: 1rem;
+    inline-size: 0.85rem;
+    block-size: 1.15rem;
     border-radius: 0.2rem;
     background: var(--c);
     opacity: 0;

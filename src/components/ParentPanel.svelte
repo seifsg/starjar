@@ -17,6 +17,7 @@
   });
 
   const kid = $derived(app.s.kids.find((k) => k.id === app.s.current));
+  /** Saves the shown kid's edits. */
   const save = (v: KidInput): void => {
     if (kid) act(updateKid, kid.id, v);
   };
@@ -24,10 +25,12 @@
   let adding = $state(false);
   let confirming = $state(false);
   const fresh: KidInput = { name: '', emoji: '🐼', reward: '', goal: 10 };
+  /** Adds a kid and closes the add form. */
   const add = (v: KidInput): void => {
     act(addKid, v);
     adding = false;
   };
+  /** Shows another kid (also on the kid screen). */
   const pick = (id: string): void => {
     act(setCurrent, id);
     confirming = false;
@@ -104,6 +107,8 @@
     max-block-size: calc(100dvh - 1rem);
     overflow-y: auto;
     overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.3) transparent;
   }
   .bar {
     position: sticky;

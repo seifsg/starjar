@@ -13,6 +13,7 @@
     draft = copy();
   });
 
+  /** Hands the edited fields to the caller. */
   function save(e: SubmitEvent): void {
     e.preventDefault();
     onsave({ ...draft, goal: Number(draft.goal) });
@@ -65,8 +66,8 @@
     margin-block-end: 0.35rem;
   }
   .avatars {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3.1rem, 1fr));
     gap: 0.4rem;
   }
   .avatar {
@@ -82,7 +83,7 @@
   .avatar span {
     display: grid;
     place-items: center;
-    inline-size: 3.1rem;
+    inline-size: 100%;
     block-size: 3.1rem;
     border-radius: 1rem;
     background: rgb(255 255 255 / 0.08);
